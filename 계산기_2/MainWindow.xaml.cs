@@ -53,10 +53,12 @@ namespace 계산기_2
 
             else if("0123456789".Contains(btn_str))
             {
+                
                 if(txtResult.Text == "0" || op_after)
+                // op_after는 bool형을 사용하여 기본값이 false
                 {
                     txtResult.Text = btn_str;
-                    op_after = false;
+                    op_after = false;   
                 }
                 else
                 {
@@ -64,55 +66,104 @@ namespace 계산기_2
                 }
             }
 
-              else if("+-X/%".Contains(btn_str))
+              else if("+-x%".Contains(btn_str))
               {
-                  l_vaule = double.Parse(txtResult.Text);
-                  m_op = btn_str[0];
-                  op_after = true;
-                  
+
+                try
+                {
+                    l_vaule = double.Parse(txtResult.Text);
+                    m_op = btn_str[0];
+                    op_after = true;
+                    txtResult.Text += btn_str;
+                }
+
+                catch(Exception ex)
+                {
+                    MessageBox.Show("연산자는 한번만 입력");
+                }
 
 
               }
+            else if(".".Contains(btn_str))
+            {
+                try
+                {
+                    if (txtResult.Text == "0")
+                    {
+                        txtResult.Text = "0.";
+                        op_after = false;
+                    }
 
-              else if("=".Contains(btn_str))
-              {
-                  r_value = double.Parse(txtResult.Text);
-                  double result = 0;
+                    else if (double.Parse(txtResult.Text) == (int)(double.Parse(txtResult.Text)))
+                    {
+                        txtResult.Text += ".";
+                    }
+                }
 
-                  switch(m_op)
-                  {
-                      case '+':
-                                    result = (double)l_vaule + (double)r_value;
-                                    break;
+                catch(Exception ex)
+                {
+                    MessageBox.Show("연속입력 X");
+                }
+            }
 
-                      case '-':
-                                    result = (double)l_vaule - (double)r_value;
-                                    break;
+            else if("backCE".Contains(btn_str))
+            {
+                if(btn.Content.ToString() == "back")
+                {
+                    txtResult.Text = txtResult.Text.Remove(txtResult.Text.Length - 1);
 
-                      case 'X':
-                                    result = (double)l_vaule * (double)r_value;
-                                    break;
-             
+                    if(txtResult.Text.Length ==0)
+                    {
+                        txtResult.Text = "0";
+                    }
+                }
 
-                      case '/':
-                                    result = (double)l_vaule / (double)r_value;
-                                    break;
-                        
-             
+                if(btn.Content.ToString()=="CE")
+                {
+                    txtResult.Text = "0";
 
-                      case '%':
-                                    result = (double)l_vaule % (double)r_value;
-                                    break;
-             
+                    
+                }
+            }
 
-                  }
+            else if("End".Contains(btn_str))
+            {
+                Close();
+            }
 
-                  txtResult.Text = result.ToString();
-                  l_vaule = result;
-                  op_after = true;
+              else if ("=".Contains(btn_str))
+            {
+                r_value = double.Parse(txtResult.Text);
+                double result = 0;
 
-              }
-            /
+                switch (m_op)
+                {
+                    case '+':
+                        result = (double)l_vaule + (double)r_value;
+                        break;
+
+                    case '-':
+                        result = (double)l_vaule - (double)r_value;
+                        break;
+
+                    case 'x':
+                        result = (double)l_vaule * (double)r_value;
+                        break;
+
+
+                    case '%':
+                        result = (double)l_vaule % (double)r_value;
+                        break;
+
+
+                }
+
+                txtResult.Text = result.ToString();
+                l_vaule = result;
+                op_after = true;
+
+            }
+
 
 
         }
