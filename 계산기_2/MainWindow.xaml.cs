@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace 계산기_2
 {
@@ -22,9 +23,12 @@ namespace 계산기_2
     {
 
         private bool op_after;
+        //op_after = true (처음치는 숫자랑 연결)
+        //op_after = false (화면을 지우고 새로운 숫자를 적음)
         private double? l_vaule;
         private double? r_value;
         private char m_op;
+        DispatcherTimer myTimer = new DispatcherTimer();
 
         public MainWindow()
         {
@@ -32,12 +36,23 @@ namespace 계산기_2
 
             txtResult.Text = "0";
             txtResult.TextAlignment = TextAlignment.Right;
+            myTimer.Interval = new TimeSpan(0, 0, 1);
+            myTimer.Tick += myTimer_Tick;
+        
 
+            myTimer.Start();
+
+        }
+
+        void myTimer_Tick(object sender , EventArgs e)
+        {
+            txtTime.Text = DateTime.Now.ToString();
         }
 
         private void NumberBtn_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
+            // 클릭된 객체를 버튼타입으로 변환
 
             string btn_str = btn.Content.ToString();
 
@@ -75,6 +90,7 @@ namespace 계산기_2
                     m_op = btn_str[0];
                     op_after = true;
                     txtResult.Text += btn_str;
+                    txtExpression.Text = l_vaule + "" + m_op;
                 }
 
                 catch(Exception ex)
@@ -95,6 +111,7 @@ namespace 계산기_2
                     }
 
                     else if (double.Parse(txtResult.Text) == (int)(double.Parse(txtResult.Text)))
+                    // 정수일떄만 소수점 찍기가능
                     {
                         txtResult.Text += ".";
                     }

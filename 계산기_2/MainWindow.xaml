@@ -23,6 +23,15 @@
                  Text="0" FontSize="48" TextAlignment="Right" VerticalContentAlignment="Center" 
                  IsReadOnly="True" Background="White" Margin="2" Padding="10"/>
 
+        <TextBlock x:Name="txtExpression" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+           Text="" FontSize="1" Foreground="Gray" TextAlignment="Right" 
+           VerticalAlignment="Top" Margin="5,5,10,0"/>
+
+        <TextBlock x:Name="txtTime" Grid.Row = "0" Grid.Column = "0" Grid.ColumnSpan="4"
+           Text ="" FontSize = "1" Foreground = "Gray" TextAlignment = "Left"
+           VerticalAlignment = "Top" Margin = "5,5,10,0"/>
+                   
+
         <Button x:Name="btnPersent" Click="NumberBtn_Click"  Content="%" Grid.Row="1" Grid.Column="0" Margin="2" FontSize="20"/>
         <Button x:Name="btnCE" Click="NumberBtn_Click"  Content="CE" Grid.Row="1" Grid.Column="1" Margin="2" FontSize="20"/>
         <Button x:Name="btnC" Click="NumberBtn_Click"  Content="C" Grid.Row="1" Grid.Column="2" Margin="2" FontSize="20"/>
@@ -46,6 +55,6 @@
         <Button x:Name="btnEnd" Click="NumberBtn_Click"  Content="End" Grid.Row="5" Grid.Column="0" Margin="2" FontSize="20"/>
         <Button x:Name="btn0" Click="NumberBtn_Click"  Content="0" Grid.Row="5" Grid.Column="1" Margin="2" FontSize="25" FontWeight="Bold"/>
         <Button x:Name="btnDot" Click="NumberBtn_Click"  Content="." Grid.Row="5" Grid.Column="2" Margin="2" FontSize="25"/>
-        <Button x:Name="btnEqual" Click="NumberBtn_Click"  Content="=" Grid.Row="5" Grid.Column="3" Margin="2" FontSize="25" Background="#ADD8E6"/>
+        <Button x:Name="btnEqual" Click="NumberBtn_Click"  Content="=" Grid.Row="5" Grid.Column="3" Margin="2" FontSize="25"/>
     </Grid>
 </Window>
